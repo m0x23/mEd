@@ -13,6 +13,7 @@
  * 		TODO - set nemonic index and make runnable with Alt-Key
  * 		TODO - insert statusbar to show linenumbers and filedetails
  * 		TODO - replace GER comments to ENG to improve global usage
+ * 		TODO - implement syntax highlighting mode
  */
 
 // Package
