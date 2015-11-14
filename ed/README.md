@@ -33,13 +33,8 @@ If u have any ideas or inspiration for me please contact me
 
 #Contact 
 
-gitHub:
+GitHub:
 m0x23 
-
-
-Facebook:
-Mark Amek Breukelman
-
 
 E-Mail
 junkee@live.de
