@@ -13,11 +13,11 @@ Also includes a dark mode
 Configuration coming soon to create a configfile to set options like:
 tabsize, default font, theme
 
-current default settings
-font: monospace
-tabsize: 2
-theme: white
-open: empty file
+current default settings<br>
+font: monospace<br>
+tabsize: 2<br>
+theme: white<br>
+open: empty file<br>
 
 Have fun using mEd
 
