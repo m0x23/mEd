@@ -10,7 +10,7 @@
  * 		DONE - dark theme
  * 		DONE - switch between sans and monospaced font
  * 		TODO - configfile
- * 		TODO - set nemonic index and make runnable with Alt
+ * 		TODO - set nemonic index and make runnable with Alt-Key
  */
 
 // Package
