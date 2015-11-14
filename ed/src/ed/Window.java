@@ -1,7 +1,6 @@
 /*
  * mEd v0.4 - a lightweight text-editor written in Java
  * author - m0x23
- * m0x23
  * 2015-11-14
  * 
  * TODOlist
