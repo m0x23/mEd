@@ -50,25 +50,25 @@ import javax.swing.undo.UndoManager;
 
 public class Window extends JFrame implements ActionListener
 {
-	// JFrame serialVersionUID
+	// autocreated JFrame serialVersionUID
 	private static final long serialVersionUID = 1L;
 
-	// Editorframe
+	// scrollable textarea
 	private JTextArea area;
 	private JScrollPane scroll;
 
-	// Undomanager
+	// undomanager
 	UndoManager undoManager;
 
-	// Menüleiste (oben)
+	// top menu bar
 	private JMenuBar menuBar = new JMenuBar();
 
-	// Menüs für JMenuBar
+	// menus to add to bar
 	JMenu menuFile = new JMenu("File");
 	JMenu menuEdit = new JMenu("Edit");
 	JMenu menuHelp = new JMenu("Help");
 
-	// Items für JMenus
+	// items to add to menus
 	JMenuItem menuItemFileOpen2 = new JMenuItem("Open");
 	JMenuItem menuItemFileNew = new JMenuItem("New");
 	JMenuItem menuItemFileSave = new JMenuItem("Save");
@@ -92,25 +92,25 @@ public class Window extends JFrame implements ActionListener
 	JMenuItem contextItemPaste = new JMenuItem("Paste");
 	JMenuItem contextItemDelete = new JMenuItem("Delete");
 
-	// Globale Variablen
+	// global vars
 	String openFilePath = "";
 	String copiedText = "";
 
-	// Variablen für Toggle
+	// global toggle vars
 	boolean isDark = false;
 	boolean isMono = true;
 
-	// Kontext-Menü
+	// contextmenu
 	JPopupMenu contextMenu = new JPopupMenu("Context");
 
 	public Window()
 	{
-		// Titel des Fensters
+		// set window title using superclass constructor
 		super(Main.version);
 
 		area = new JTextArea();
 
-		// Eigenschaften für den Textbereich setzen
+		// set options for textarea
 		area.setWrapStyleWord(true);
 		area.setLineWrap(true);
 		area.setFont(new Font("monospaced", Font.PLAIN, 14));
@@ -122,11 +122,11 @@ public class Window extends JFrame implements ActionListener
 
 		scroll = new JScrollPane(area);
 
-		// UndoManager Listener
+		// add listener for undomanager
 		undoManager = new UndoManager();
 		area.getDocument().addUndoableEditListener(undoManager);
 
-		// Größe und Layout des Fensters festlegen
+		// size and layout of the window
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		int width = (int) tk.getScreenSize().getWidth();
 		int height = (int) tk.getScreenSize().getHeight();
@@ -314,6 +314,7 @@ public class Window extends JFrame implements ActionListener
 		this.setTitle(Main.version + " - " + openFilePath);
 	}
 
+	// what to when the actionlistener gets a source
 	public void actionPerformed(ActionEvent evt)
 	{
 		Object source = evt.getSource();
