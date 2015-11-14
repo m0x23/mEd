@@ -19,10 +19,11 @@ package ed;
 
 public class Main
 {
+	static String version = "mEd v0.4";
 	public static void main(String[] args)
 	{
 		// print LaunchINFO
-		System.out.println("mEd v0.4 executed");
+		System.out.println(version + " executed");
 		//create and show the mEd
 		new Window();		
 	}

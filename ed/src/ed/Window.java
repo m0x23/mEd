@@ -104,7 +104,7 @@ public class Window extends JFrame implements ActionListener
 	public Window()
 	{
 		// Titel des Fensters
-		super("mEd v0.4");
+		super(Main.version);
 
 		area = new JTextArea();
 
@@ -301,7 +301,7 @@ public class Window extends JFrame implements ActionListener
 		// >Aktueller< Dateipfad wird aktualisiert
 		openFilePath = saveAsFilePath;
 		// Fenstertitel wird neu geschrieben
-		this.setTitle("mEd v0.4 - " + openFilePath);
+		this.setTitle(Main.version + " - " + openFilePath);
 	}
 
 	public void actionPerformed(ActionEvent evt)
@@ -312,9 +312,9 @@ public class Window extends JFrame implements ActionListener
 		if(source == menuItemHelpAbout)
 		{
 			System.out.println("about executed");
-			System.out.println("mEd v0.4 - by m0x23");
+			System.out.println(Main.version + " - by m0x23");
 			// GUI-MessageDialog anzeigen
-			JOptionPane.showMessageDialog(null, "mEd v0.4\na lightweight text-editor written in Java\n\nby m0x23", "About mEd", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, Main.version + "\na lightweight text-editor written in Java\n\nby m0x23", "About mEd", JOptionPane.INFORMATION_MESSAGE);
 		}
 
 		// help - helpdialog
@@ -322,7 +322,8 @@ public class Window extends JFrame implements ActionListener
 		{
 			System.out.println("help executed");
 			// GUI-MessageDialog anzeigen
-			JOptionPane.showMessageDialog(null, "mEd text-editor\n\n" + "all keyboard shortcuts activated\nlook for tooltips in menu\n\nversion information: mEd v0.4", "mEd Manual",
+			JOptionPane.showMessageDialog(null, "mEd text-editor\n\n" + "all keyboard shortcuts activated\nlook for tooltips in menu\n\nversion information: " + Main.version
+					, "mEd Manual",
 					JOptionPane.INFORMATION_MESSAGE);
 		}
 
@@ -346,7 +347,7 @@ public class Window extends JFrame implements ActionListener
 				{
 					saveAs();
 					System.out.println("savepath: " + openFilePath);
-					System.out.println("mEd v0.4 closed");
+					System.out.println(Main.version + " closed");
 					System.exit(0);
 				}
 				else
@@ -367,7 +368,7 @@ public class Window extends JFrame implements ActionListener
 					}
 				}
 
-				System.out.println("mEd v0.4 closed");
+				System.out.println(Main.version+ " closed");
 				System.exit(0);
 			}
 
@@ -397,7 +398,7 @@ public class Window extends JFrame implements ActionListener
 			{
 				// Editorbereich leeren, Fenstertitel zurücksetzen,
 				area.setText("");
-				this.setTitle("mEd v0.4");
+				this.setTitle(Main.version);
 
 				// aktuellen Pfad leeren
 				openFilePath = "";
@@ -456,7 +457,7 @@ public class Window extends JFrame implements ActionListener
 				area.setCaretPosition(0);
 				System.out.println("file successfully opened");
 				// Titel des Fensters aktualisieren
-				this.setTitle("mEd v0.4 - " + openFilePath);
+				this.setTitle(Main.version + " - " + openFilePath);
 			}
 			catch(FileNotFoundException e)
 			{
