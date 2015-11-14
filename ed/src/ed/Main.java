@@ -12,8 +12,8 @@
  * 		TODO - configfile
  * 		TODO - set nemonic index and make runnable with Alt-Key
  * 		TODO - insert statusbar to show linenumbers and filedetails
- * 		TODO - replace GER comments to ENG to improve global usage
- * 		TODO - implement syntax highlighting mode
+ * 		DONE - replace GER comments to ENG to improve global usage
+ * 		TODO - implement syntax highlighting mode using bobbylight/RSyntaxTextArea
  */
 
 // Package
@@ -24,7 +24,7 @@ public class Main
 	static String version = "mEd v0.4";
 	public static void main(String[] args)
 	{
-		// print LaunchINFO
+		// print name and version
 		System.out.println(version + " executed");
 		//create and show the mEd
 		new Window();		

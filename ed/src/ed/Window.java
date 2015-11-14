@@ -12,8 +12,8 @@
  * 		TODO - configfile
  * 		TODO - set nemonic index and make runnable with Alt-Key
  * 		TODO - insert statusbar to show linenumbers and filedetails
- * 		TODO - replace GER comments to ENG to improve global usage
- * 		TODO - implement syntax highlighting mode
+ * 		DONE - replace GER comments to ENG to improve global usage
+ * 		TODO - implement syntax highlighting mode using bobbylight/RSyntaxTextArea
  */
 
 // Package
@@ -119,7 +119,7 @@ public class Window extends JFrame implements ActionListener
 		area.setBackground(Color.white);
 		area.setForeground(Color.black);
 		area.setCaretColor(Color.black);
-		
+
 		scroll = new JScrollPane(area);
 
 		// UndoManager Listener
@@ -134,14 +134,12 @@ public class Window extends JFrame implements ActionListener
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
 
-		// hauptmenüs der JMenuBar hinzufügen
+		// add menus to menubar
 		menuBar.add(menuFile);
 		menuBar.add(menuEdit);
 		menuBar.add(menuHelp);
 
-		// einzelne Elemente werden dem jeweiligen menu hinzugefügt
-
-		// file menu
+		// add file menu items
 		menuFile.add(menuItemFileNew);
 		menuFile.add(menuItemFileOpen2);
 		menuFile.add(menuItemFileSave);
@@ -149,13 +147,14 @@ public class Window extends JFrame implements ActionListener
 		menuFile.addSeparator();
 		menuFile.add(menuItemFileExit);
 
+		// set file menu keyboard shortcuts
 		menuItemFileNew.setAccelerator(KeyStroke.getKeyStroke("ctrl N"));
 		menuItemFileOpen2.setAccelerator(KeyStroke.getKeyStroke("ctrl O"));
 		menuItemFileSave.setAccelerator(KeyStroke.getKeyStroke("ctrl S"));
 		menuItemFileSaveAs.setAccelerator(KeyStroke.getKeyStroke("ctrl shift S"));
 		menuItemFileExit.setAccelerator(KeyStroke.getKeyStroke("ctrl W"));
 
-		// file edit
+		// add edit menu items
 		menuEdit.add(menuItemEditCopy);
 		menuEdit.add(menuItemEditCut);
 		menuEdit.add(menuItemEditPaste);
@@ -167,6 +166,7 @@ public class Window extends JFrame implements ActionListener
 		menuEdit.add(menuItemEditDark);
 		menuEdit.add(menuItemEditFont);
 
+		// set edit menu shortcuts
 		menuItemEditCopy.setAccelerator(KeyStroke.getKeyStroke("ctrl C"));
 		menuItemEditCut.setAccelerator(KeyStroke.getKeyStroke("ctrl X"));
 		menuItemEditPaste.setAccelerator(KeyStroke.getKeyStroke("ctrl V"));
@@ -177,24 +177,26 @@ public class Window extends JFrame implements ActionListener
 		menuItemEditDark.setAccelerator(KeyStroke.getKeyStroke("ctrl D"));
 		menuItemEditFont.setAccelerator(KeyStroke.getKeyStroke("ctrl F"));
 
-		// help
+		// add help menu items
 		menuHelp.add(menuItemHelpHelp);
 		menuHelp.add(menuItemHelpAbout);
 
+		// set help menu shortcuts
 		menuItemHelpHelp.setAccelerator(KeyStroke.getKeyStroke("ctrl F1"));
 		menuItemHelpAbout.setAccelerator(KeyStroke.getKeyStroke("ctrl F2"));
 
-		// rightclick menu
+		// add context menu items
 		contextMenu.add(contextItemPaste);
 		contextMenu.add(contextItemDelete);
 		contextMenu.add(contextItemCut);
 		contextMenu.add(contextItemCopy);
 
+		// set context menu shortcuts
 		contextItemCopy.setAccelerator(KeyStroke.getKeyStroke("ctrl C"));
 		contextItemCut.setAccelerator(KeyStroke.getKeyStroke("ctrl X"));
 		contextItemPaste.setAccelerator(KeyStroke.getKeyStroke("ctrl V"));
 
-		// ActionListener werden den Elementen hinzugefügt
+		// add ActionListener to the items
 		menuItemFileNew.addActionListener(this);
 		menuItemFileOpen2.addActionListener(this);
 		menuItemFileSave.addActionListener(this);
@@ -217,14 +219,13 @@ public class Window extends JFrame implements ActionListener
 		contextItemCut.addActionListener(this);
 		contextItemPaste.addActionListener(this);
 		contextItemDelete.addActionListener(this);
-		
+
+		// set init color of the bars and the items
 		menuBar.setBackground(Color.lightGray);
 		menuFile.setForeground(Color.black);
-		//menuFile.setDisplayedMnemonicIndex(0);
 		menuEdit.setForeground(Color.black);
 		menuHelp.setForeground(Color.black);
 		menuItemFileNew.setBackground(Color.lightGray);
-		//menuItemFileNew.setDisplayedMnemonicIndex(0);
 		menuItemFileOpen2.setBackground(Color.lightGray);
 		menuItemFileSave.setBackground(Color.lightGray);
 		menuItemFileSaveAs.setBackground(Color.lightGray);
@@ -239,7 +240,7 @@ public class Window extends JFrame implements ActionListener
 		menuItemEditFont.setBackground(Color.lightGray);
 		menuItemHelpHelp.setBackground(Color.lightGray);
 		menuItemHelpAbout.setBackground(Color.lightGray);
-		
+
 		menuItemFileNew.setForeground(Color.black);
 		menuItemFileOpen2.setForeground(Color.black);
 		menuItemFileSave.setForeground(Color.black);
@@ -256,44 +257,51 @@ public class Window extends JFrame implements ActionListener
 		menuItemHelpHelp.setForeground(Color.black);
 		menuItemHelpAbout.setForeground(Color.black);
 
-		// Editorfeld und JMenuBar werden dem Fenster hinzufügt
+		// set menu items mnemonic button
+		// menuFile.setDisplayedMnemonicIndex(0);
+		// menuItemFileNew.setDisplayedMnemonicIndex(0);
+
+		// add textarea and menubar to jframe
 		this.add(scroll);
 		this.setJMenuBar(menuBar);
 
+		// make visible
 		this.setVisible(true);
 	}
 
-	// Speichern-Funktion
+	// saveAs function
 	void saveAs()
 	{
-		int saveAsIsSelected; // Abfrage-Variable
-		String saveAsFilePath = null; // Pfad-Variable
-		FileWriter fw; // Filewriter - Dateischreiber?
+		int saveAsIsSelected;
+		String saveAsFilePath = null; // path
+		FileWriter fw; // filewriter object
 
-		// Dateiauswahldialog
+		// select file dialog
 		JFileChooser saveAsFileChoose;
 		saveAsFileChoose = new JFileChooser();
-		saveAsFileChoose.setDialogTitle("Save as..."); // Dialogtitel setzen
+		saveAsFileChoose.setDialogTitle("Save as...");
 		System.out.println("saveAs executed");
+
+		// show the dialog
 		saveAsIsSelected = saveAsFileChoose.showSaveDialog(this);
 		System.out.println("return:" + saveAsIsSelected);
 
-		// Wenn 0 (eine Datei wurde ausgewählt) dann:
+		// if a file was selected then
 		if(saveAsIsSelected == 0)
 		{
-			// Pfadstring speichern
+			// save the path
 			saveAsFilePath = saveAsFileChoose.getSelectedFile().getAbsolutePath();
 			System.out.println("saveAs file to: " + saveAsFilePath);
 		}
 		try
 		{
-			// FileWriter-Objekt instanzieren - Speicherpfadübergabe
+			// construct the fw with the selected path
 			fw = new FileWriter(saveAsFilePath);
-			// Inhalt aus dem Textfeld in die Datei schreiben
+			// write to target path
 			area.write(fw);
-			fw.close(); // FileWriter schließen
-			// Erfolgsmitteilung
-			System.out.println("file successfully saved as " + saveAsFilePath);
+			fw.close(); // close fw
+			System.out.println("file successfully saved as " + saveAsFilePath); // success
+																																					// message
 		}
 		catch(IOException e)
 		{
@@ -310,7 +318,7 @@ public class Window extends JFrame implements ActionListener
 	{
 		Object source = evt.getSource();
 
-		// help - about
+		// action for help - about
 		if(source == menuItemHelpAbout)
 		{
 			System.out.println("about executed");
@@ -319,20 +327,19 @@ public class Window extends JFrame implements ActionListener
 			JOptionPane.showMessageDialog(null, Main.version + "\na lightweight text-editor written in Java\n\nby m0x23", "About mEd", JOptionPane.INFORMATION_MESSAGE);
 		}
 
-		// help - helpdialog
+		// action for help - help dialog
 		if(source == menuItemHelpHelp)
 		{
 			System.out.println("help executed");
-			// GUI-MessageDialog anzeigen
-			JOptionPane.showMessageDialog(null, "mEd text-editor\n\n" + "all keyboard shortcuts activated\nlook for tooltips in menu\n\nversion information: " + Main.version
-					, "mEd Manual",
+			// show popup dialog
+			JOptionPane.showMessageDialog(null, "mEd text-editor\n\n" + "all keyboard shortcuts activated\nlook for tooltips in menu\n\nversion information: " + Main.version, "mEd Manual",
 					JOptionPane.INFORMATION_MESSAGE);
 		}
 
-		// file - close
+		// action for file - close
 		if(source == menuItemFileExit)
 		{
-			// Zeige ein Abfragefenster - Yes No
+			// show Yes No selection
 			int returnConfirm = JOptionPane.showConfirmDialog(null, "Do you want to save before exit?", "Save File?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 			// selected no
@@ -370,11 +377,11 @@ public class Window extends JFrame implements ActionListener
 					}
 				}
 
-				System.out.println(Main.version+ " closed");
+				System.out.println(Main.version + " closed");
 				System.exit(0);
 			}
 
-			// confirmation exited
+			// confirmation unexcepted exited
 			else if(returnConfirm == JOptionPane.CLOSED_OPTION)
 			{
 				System.out.println("confirmation closed");
@@ -382,11 +389,11 @@ public class Window extends JFrame implements ActionListener
 
 		}
 
-		// file - new
+		// action for file - new
 		if(source == menuItemFileNew)
 		{
 			System.out.println("create new file?");
-			// Zeige ein Abfragefenster - Yes No
+			// show Yes No selection
 			int returnConfirm = JOptionPane.showConfirmDialog(null, "Do you want to create a new file?", "New File?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
 			// selected no
@@ -398,67 +405,71 @@ public class Window extends JFrame implements ActionListener
 			// selected yes
 			else if(returnConfirm == JOptionPane.YES_OPTION)
 			{
-				// Editorbereich leeren, Fenstertitel zurücksetzen,
+				// clear textarea - reset windowtitle
 				area.setText("");
 				this.setTitle(Main.version);
 
-				// aktuellen Pfad leeren
+				// clear current working path
 				openFilePath = "";
 
 				System.out.println("selection: yes");
 				System.out.println("new file created");
 			}
 
-			// confirmation exited
+			// confirmation unexcepted exited
 			else if(returnConfirm == JOptionPane.CLOSED_OPTION)
 			{
 				System.out.println("confirmation closed");
 			}
 		}
 
-		// file - open
+		// action for file - open
 		if(source == menuItemFileOpen2)
 		{
-			int openIsSelected; // Abfrage-Variable
-			// Dateiauswahldialog
+			int openIsSelected;
+			// select file dialog
 			JFileChooser openFileChoose;
 			openFileChoose = new JFileChooser();
 			System.out.println("open executed");
-			openFileChoose.setDialogTitle("Open..."); // Dialogtitel setzen
-			openIsSelected = openFileChoose.showOpenDialog(this); // anzeigen
+			openFileChoose.setDialogTitle("Open...");
+
+			// show the dialog
+			openIsSelected = openFileChoose.showOpenDialog(this);
 			System.out.println("return:" + openIsSelected);
 
-			// Wenn 0 (eine Datei wurde ausgewählt) dann:
+			// if a file was selected:
 			if(openIsSelected == 0)
 			{
-				// Pfad in String-Variable openFilePath sichern
 				openFilePath = openFileChoose.getSelectedFile().getAbsolutePath();
 				System.out.println("selected file: " + openFilePath);
 			}
+			// add file content to the textarea
 			String line;
 			String linebuilder;
-			FileReader fr; // FileReader - Datei-Leser?
-			// BufferedReader um Zeilenweise zu lesen
+			FileReader fr; // file reader object
+			// init bufferedreader to get stringlines
 			BufferedReader br = null;
 			try
 			{
 				fr = new FileReader(openFileChoose.getSelectedFile().getAbsolutePath());
 				br = new BufferedReader(fr);
 				line = "";
-				linebuilder = br.readLine(); // gelesene Zeile speichern
+				linebuilder = br.readLine(); // get first line of file
+				
+				// loop to build the finalstring for the textarea
 				while(linebuilder != null)
 				{
-					line = line + linebuilder + "\n"; // line (temp) "aufbauen"
-					linebuilder = br.readLine(); // elesene Zeile speichern
+					line = line + linebuilder + "\n"; // finalstring(the temp)
+					linebuilder = br.readLine(); // get next line
 				}
-				// erstellten String in Editorfeld einfügen
+				// add finalstring
 				area.setText(line);
-				fr.close(); // FileReader schließen
+				fr.close(); // close fr
 
-				// Position des Cursors an den Anfang setzen
+				// reset caret to start of file
 				area.setCaretPosition(0);
+				// success message and refresh the windowtitle
 				System.out.println("file successfully opened");
-				// Titel des Fensters aktualisieren
 				this.setTitle(Main.version + " - " + openFilePath);
 			}
 			catch(FileNotFoundException e)
@@ -473,11 +484,10 @@ public class Window extends JFrame implements ActionListener
 			}
 		}
 
-		// file - save
+		// action for file - save
 		if(source == menuItemFileSave)
 		{
-			// Überprüft ob eine Datei geöffnet ist
-			// Wenn ja wird diese überschrieben
+			// if a file is already opened it will be overwritten
 			if(!openFilePath.equals(""))
 			{
 				System.out.println("save executed");
@@ -496,43 +506,45 @@ public class Window extends JFrame implements ActionListener
 					System.out.println(e.toString());
 				}
 			}
-			// Wenn nicht wird nach einem Pfad gefragt
+			// if not: please select a path to write the file
 			else
 			{
-				// execute saveAs
 				saveAs();
 			}
 		}
 
-		// file - saveas
+		// action for file - saveas
 		if(source == menuItemFileSaveAs)
 		{
 			saveAs();
 		}
 
-		// rightclick/edit - copy
+		// action for context menu copy / edit - copy
 		if(source == menuItemEditCopy || source == contextItemCopy)
 		{
 			System.out.println("selection cutted to clipboard");
 			System.out.println("copied text: " + area.getSelectedText());
-			area.copy(); // in die Zwischenablage kopieren
+			// copy to clipboard
+			area.copy(); 
 		}
 
-		// rightclick/edit - paste
+		// action for context menu paste / edit - paste
 		if(source == menuItemEditPaste || source == contextItemPaste)
 		{
 			System.out.println("clipboard pasted");
-			area.paste(); // aus der Zwischenablage einfügen
+			// paste from clipboard to textarea
+			area.paste(); 
 		}
 
-		// rightclick/edit - cut
+		// action for context menu cut / edit - cut
 		if(source == menuItemEditCut || source == contextItemCut)
 		{
 			System.out.println("selection cutted to clipboard");
-			area.cut(); // in die Zwischenablage ausschneiden
+			// cut to clipboard
+			area.cut(); 
 		}
 
-		// rightclick/edit - delete
+		// action for context menu delete / edit - delete
 		if(source == menuItemEditDelete || source == contextItemDelete)
 		{
 			System.out.println("delete executed");
@@ -540,8 +552,9 @@ public class Window extends JFrame implements ActionListener
 			try
 			{
 				Robot emuPress;
-				// Objekt zum emulieren eines Tastendrucks erzeugen
+				// create object for filepress emulation
 				emuPress = new Robot();
+				//press and release the delete button
 				emuPress.keyPress(KeyEvent.VK_DELETE);
 				emuPress.keyRelease(KeyEvent.VK_DELETE);
 			}
@@ -551,14 +564,16 @@ public class Window extends JFrame implements ActionListener
 			}
 		}
 
-		// edit - undo
+		// action for edit - undo
 		if(source == menuItemEditUndo)
 		{
 			System.out.println("undo executed");
 			try
 			{
+				// undo last operation
 				undoManager.undo();
 				menuItemEditRedo.setEnabled(true);
+				// disable redo if theres nothing to redo
 				if(!undoManager.canUndo())
 				{
 					menuItemEditRedo.setEnabled(false);
@@ -570,13 +585,15 @@ public class Window extends JFrame implements ActionListener
 			}
 		}
 
-		// edit - redo
+		// action for edit - redo
 		if(source == menuItemEditRedo)
 		{
 			System.out.println("redo executed");
 			try
 			{
+				// redo last operation
 				undoManager.redo();
+				// disable if theres nothing to do
 				if(!undoManager.canRedo())
 				{
 					menuItemEditRedo.setEnabled(false);
@@ -588,12 +605,13 @@ public class Window extends JFrame implements ActionListener
 			}
 		}
 
-		// edit - toggle darkmode
+		// action for edit - toggle darkmode
 		if(source == menuItemEditDark)
 		{
 			System.out.println("dark executed");
 			if(isDark)
 			{
+				//set colors of interface
 				menuBar.setBackground(Color.lightGray);
 				menuFile.setForeground(Color.black);
 				menuEdit.setForeground(Color.black);
@@ -613,7 +631,7 @@ public class Window extends JFrame implements ActionListener
 				menuItemEditFont.setBackground(Color.lightGray);
 				menuItemHelpHelp.setBackground(Color.lightGray);
 				menuItemHelpAbout.setBackground(Color.lightGray);
-				
+
 				menuItemFileNew.setForeground(Color.black);
 				menuItemFileOpen2.setForeground(Color.black);
 				menuItemFileSave.setForeground(Color.black);
@@ -629,6 +647,8 @@ public class Window extends JFrame implements ActionListener
 				menuItemEditFont.setForeground(Color.black);
 				menuItemHelpHelp.setForeground(Color.black);
 				menuItemHelpAbout.setForeground(Color.black);
+				
+				//set colors of textarea
 				area.setBackground(Color.white);
 				area.setForeground(Color.black);
 				area.setCaretColor(Color.black);
@@ -636,6 +656,7 @@ public class Window extends JFrame implements ActionListener
 			}
 			else
 			{
+				//set colors of interface
 				menuBar.setBackground(Color.darkGray);
 				menuFile.setForeground(Color.white);
 				menuEdit.setForeground(Color.white);
@@ -655,7 +676,7 @@ public class Window extends JFrame implements ActionListener
 				menuItemEditFont.setBackground(Color.darkGray);
 				menuItemHelpHelp.setBackground(Color.darkGray);
 				menuItemHelpAbout.setBackground(Color.darkGray);
-				
+
 				menuItemFileNew.setForeground(Color.white);
 				menuItemFileOpen2.setForeground(Color.white);
 				menuItemFileSave.setForeground(Color.white);
@@ -671,30 +692,35 @@ public class Window extends JFrame implements ActionListener
 				menuItemEditFont.setForeground(Color.white);
 				menuItemHelpHelp.setForeground(Color.white);
 				menuItemHelpAbout.setForeground(Color.white);
-				
+
+				// set colors of textarea and caret
 				area.setBackground(Color.darkGray);
 				area.setForeground(Color.white);
 				area.setCaretColor(Color.white);
 
 			}
+			// toggle isDark
 			isDark = !isDark;
 			System.out.println("darkmode: " + isDark);
 		}
 
-		// edit - toggle font
+		// action for edit - toggle font
 		if(source == menuItemEditFont)
 		{
 			System.out.println("font executed");
 			if(isMono)
 			{
+				//set font to sans
 				area.setFont(new Font("sans", Font.PLAIN, 14));
 				System.out.println("font: sans");
 			}
 			else
 			{
+				// set font to monospaced
 				area.setFont(new Font("monospaced", Font.PLAIN, 14));
-				System.out.println("font: mono");
+				System.out.println("font: monospaced");
 			}
+			// toggle isMono
 			isMono = !isMono;
 		}
 	}
