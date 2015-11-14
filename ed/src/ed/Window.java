@@ -11,6 +11,7 @@
  * 		DONE - switch between sans and monospaced font
  * 		TODO - configfile
  * 		TODO - set nemonic index and make runnable with Alt-Key
+ * 		TODO - insert statusbar to show linenumbers and filedetails
  */
 
 // Package
