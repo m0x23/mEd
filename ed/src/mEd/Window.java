@@ -16,7 +16,7 @@
  */
 
 // Package
-package ed;
+package mEd;
 
 // Imports
 import java.awt.AWTException;

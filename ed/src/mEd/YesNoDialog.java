@@ -1,4 +1,4 @@
-package ed;
+package mEd;
 
 import javax.swing.JOptionPane;
 
