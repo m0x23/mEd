@@ -325,7 +325,7 @@ public class Window extends JFrame implements ActionListener
 		{
 			System.out.println("about executed");
 			System.out.println(Main.version + " - by m0x23");
-			// GUI-MessageDialog anzeigen
+			// show message dialog
 			MsgDialog.create(Main.version + "\na lightweight text-editor written in Java\n\nby m0x23", "About mEd");
 		}
 
