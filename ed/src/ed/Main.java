@@ -1,5 +1,5 @@
 /*
- * mEd v0.4 - a lightweight text-editor written in Java
+ * mEd v0.5 - a lightweight text-editor written in Java
  * author - m0x23
  * 2015-11-14
  * 
@@ -20,7 +20,7 @@ package ed;
 
 public class Main
 {
-	static String version = "mEd v0.4";
+	static String version = "mEd v0.5";
 	public static void main(String[] args)
 	{
 		// print name and version
