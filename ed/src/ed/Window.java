@@ -340,7 +340,7 @@ public class Window extends JFrame implements ActionListener
 		if(source == menuItemFileExit)
 		{
 			// show Yes No selection
-			int returnConfirm = JOptionPane.showConfirmDialog(null, "Do you want to save before exit?", "Save File?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+			int returnConfirm = YesNoDialog.create("Do you want to save before exit?", "Save File?");
 
 			// selected no
 			if(returnConfirm == JOptionPane.NO_OPTION)
@@ -394,8 +394,7 @@ public class Window extends JFrame implements ActionListener
 		{
 			System.out.println("create new file?");
 			// show Yes No selection
-			int returnConfirm = JOptionPane.showConfirmDialog(null, "Do you want to create a new file?", "New File?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-
+			int returnConfirm = YesNoDialog.create("New File?", "Do you want to create a new file?");
 			// selected no
 			if(returnConfirm == JOptionPane.NO_OPTION)
 			{
