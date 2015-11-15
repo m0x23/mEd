@@ -1,7 +1,7 @@
 /*
  * mEd v0.5 - a lightweight text-editor written in Java
  * author - m0x23
- * 2015-11-14
+ * 2015-11-15
  * 
  * TODOlist
  * 		DONE - contextMenu 
@@ -304,7 +304,10 @@ public class Window extends JFrame implements ActionListener
 		catch(IOException e)
 		{
 			System.out.println("ERROR: file not saved: " + saveAsFilePath);
-			System.out.println(e.toString());
+		}
+		catch(NullPointerException e)
+		{
+			System.out.println("saving aborted");
 		}
 		// >Aktueller< Dateipfad wird aktualisiert
 		openFilePath = saveAsFilePath;
@@ -343,7 +346,7 @@ public class Window extends JFrame implements ActionListener
 			// selected no
 			if(returnConfirm == YesNoDialog.NO_OPTION)
 			{
-				System.out.println("selection: no");
+				System.out.println(Main.version + " closed");
 				System.exit(0);
 			}
 
@@ -353,6 +356,7 @@ public class Window extends JFrame implements ActionListener
 				if(openFilePath.equals(""))
 				{
 					saveAs();
+					
 					System.out.println("savepath: " + openFilePath);
 					System.out.println(Main.version + " closed");
 					System.exit(0);
@@ -371,7 +375,6 @@ public class Window extends JFrame implements ActionListener
 					catch(IOException e)
 					{
 						System.out.println("ERROR: file not saved: " + openFilePath);
-						System.out.println(e.toString());
 					}
 				}
 
@@ -396,7 +399,6 @@ public class Window extends JFrame implements ActionListener
 			// selected no
 			if(returnConfirm == YesNoDialog.NO_OPTION)
 			{
-				System.out.println("selection: no");
 			}
 
 			// selected yes
@@ -409,7 +411,6 @@ public class Window extends JFrame implements ActionListener
 				// clear current working path
 				openFilePath = "";
 
-				System.out.println("selection: yes");
 				System.out.println("new file created");
 			}
 
@@ -472,12 +473,14 @@ public class Window extends JFrame implements ActionListener
 			catch(FileNotFoundException e)
 			{
 				System.out.println("ERROR: File not found");
-				e.printStackTrace();
 			}
 			catch(IOException e)
 			{
-				System.out.println("IO ERROR");
-				e.printStackTrace();
+				System.out.println("ERROR: IO Exception");
+			}
+			catch(NullPointerException e)
+			{
+				System.out.println("open aborted");
 			}
 		}
 
