@@ -9,8 +9,11 @@ by m0x23
 Easy to use text-editor.
 
 Its runnable on any system if Java Runtime Environment is installed
+
 Also includes a dark mode
+
 Configuration coming soon to create a configfile to set options like:
+
 tabsize, default font, theme
 
 #current default settings
