@@ -38,7 +38,6 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -324,7 +323,7 @@ public class Window extends JFrame implements ActionListener
 			System.out.println("about executed");
 			System.out.println(Main.version + " - by m0x23");
 			// GUI-MessageDialog anzeigen
-			JOptionPane.showMessageDialog(null, Main.version + "\na lightweight text-editor written in Java\n\nby m0x23", "About mEd", JOptionPane.INFORMATION_MESSAGE);
+			MsgDialog.create(Main.version + "\na lightweight text-editor written in Java\n\nby m0x23", "About mEd");
 		}
 
 		// action for help - help dialog
@@ -332,8 +331,7 @@ public class Window extends JFrame implements ActionListener
 		{
 			System.out.println("help executed");
 			// show popup dialog
-			JOptionPane.showMessageDialog(null, "mEd text-editor\n\n" + "all keyboard shortcuts activated\nlook for tooltips in menu\n\nversion information: " + Main.version, "mEd Manual",
-					JOptionPane.INFORMATION_MESSAGE);
+			MsgDialog.create("mEd text-editor\n\n" + "all keyboard shortcuts activated\nlook for tooltips in menu\n\nversion information: " + Main.version, "mEd Manual");
 		}
 
 		// action for file - close
@@ -343,14 +341,14 @@ public class Window extends JFrame implements ActionListener
 			int returnConfirm = YesNoDialog.create("Do you want to save before exit?", "Save File?");
 
 			// selected no
-			if(returnConfirm == JOptionPane.NO_OPTION)
+			if(returnConfirm == YesNoDialog.NO_OPTION)
 			{
 				System.out.println("selection: no");
 				System.exit(0);
 			}
 
 			// selected yes
-			else if(returnConfirm == JOptionPane.YES_OPTION)
+			else if(returnConfirm == YesNoDialog.YES_OPTION)
 			{
 				if(openFilePath.equals(""))
 				{
@@ -382,7 +380,7 @@ public class Window extends JFrame implements ActionListener
 			}
 
 			// confirmation unexcepted exited
-			else if(returnConfirm == JOptionPane.CLOSED_OPTION)
+			else if(returnConfirm == YesNoDialog.CLOSED_OPTION)
 			{
 				System.out.println("confirmation closed");
 			}
@@ -396,13 +394,13 @@ public class Window extends JFrame implements ActionListener
 			// show Yes No selection
 			int returnConfirm = YesNoDialog.create("New File?", "Do you want to create a new file?");
 			// selected no
-			if(returnConfirm == JOptionPane.NO_OPTION)
+			if(returnConfirm == YesNoDialog.NO_OPTION)
 			{
 				System.out.println("selection: no");
 			}
 
 			// selected yes
-			else if(returnConfirm == JOptionPane.YES_OPTION)
+			else if(returnConfirm == YesNoDialog.YES_OPTION)
 			{
 				// clear textarea - reset windowtitle
 				area.setText("");
@@ -416,7 +414,7 @@ public class Window extends JFrame implements ActionListener
 			}
 
 			// confirmation unexcepted exited
-			else if(returnConfirm == JOptionPane.CLOSED_OPTION)
+			else if(returnConfirm == YesNoDialog.CLOSED_OPTION)
 			{
 				System.out.println("confirmation closed");
 			}

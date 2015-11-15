@@ -4,6 +4,7 @@ a lightweight text-editor written in Java
 by m0x23
 
 
+
 #Description
 
 Easy to use text-editor.
@@ -15,6 +16,8 @@ Also includes a dark mode
 Configuration coming soon to create a configfile to set options like:
 
 tabsize, default font, theme
+
+
 
 #current default settings
 
