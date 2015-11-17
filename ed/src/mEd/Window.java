@@ -272,6 +272,9 @@ public class Window extends JFrame implements ActionListener
 		menuItemEditLineNo.setForeground(Color.black);
 		menuItemHelpHelp.setForeground(Color.black);
 		menuItemHelpAbout.setForeground(Color.black);
+		
+		tln.setBackground(Color.lightGray);
+		tln.setForeground(Color.darkGray);
 
 		// set menu items mnemonic button
 		// menuFile.setDisplayedMnemonicIndex(0);
