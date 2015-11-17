@@ -8,6 +8,7 @@
  * 		DONE - add undo/redo function
  * 		DONE - dark theme
  * 		DONE - switch between sans and monospaced font
+ * 		DONE - implement line numbers on the left side
  * 		TODO - configfile
  * 		TODO - set nemonic index and make runnable with Alt-Key
  * 		TODO - insert statusbar to show linenumbers and filedetails
