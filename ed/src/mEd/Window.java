@@ -1,7 +1,7 @@
 /*
  * mEd v0.6 - a lightweight text-editor written in Java
  * author - m0x23
- * 2015-11-15
+ * 2015-11-17
  * 
  * TODOlist
  * 		DONE - contextMenu 
