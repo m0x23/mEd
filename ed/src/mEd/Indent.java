@@ -1,8 +1,7 @@
 package mEd;
 
 import java.awt.event.ActionEvent;
-
-import javax.swing.AbstractAction;
+import java.awt.event.ActionListener;
 import javax.swing.JTextArea;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
@@ -11,13 +10,8 @@ import javax.swing.text.Document;
  * @author Santhosh Kumar T
  * @email santhosh@fiorano.com
  */
-public class Indent extends AbstractAction
+public class Indent implements ActionListener
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public void actionPerformed(ActionEvent ae)
 	{
 		JTextArea comp = (JTextArea) ae.getSource();
