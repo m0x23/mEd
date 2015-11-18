@@ -10,7 +10,7 @@
  * 		DONE - switch between sans and monospaced font
  * 		DONE - implement line numbers on the left side
  * 		TODO - configfile
- * 		TODO - set nemonic index and make runnable with Alt-Key
+ * 		TODO - set mnemonic index and make runnable with Alt-Key
  * 		TODO - insert statusbar to show linenumbers and filedetails
  * 		DONE - replace GER comments to ENG to improve global usage
  * 		TODO - implement syntax highlighting mode using bobbylight/RSyntaxTextArea
