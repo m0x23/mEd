@@ -1,7 +1,7 @@
 /*
- * mEd v0.6 - a lightweight text-editor written in Java
+ * mEd v0.7 - a lightweight text-editor written in Java
  * author - m0x23
- * 2015-11-17
+ * 2015-11-18
  * 
  * TODOlist
  * 		DONE - contextMenu 
@@ -14,6 +14,9 @@
  * 		TODO - insert statusbar to show linenumbers and filedetails
  * 		DONE - replace GER comments to ENG to improve global usage
  * 		TODO - implement syntax highlighting mode using bobbylight/RSyntaxTextArea
+ * 		TODO - templates to insert
+ * 		TODO - auto indent
+ * 		TODO - modulize editor textarea in own class
  */
 
 // Package
@@ -34,6 +37,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -46,7 +50,6 @@ import javax.swing.KeyStroke;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 import javax.swing.undo.UndoManager;
-
 
 public class Window extends JFrame implements ActionListener
 {
@@ -85,7 +88,6 @@ public class Window extends JFrame implements ActionListener
 	JMenuItem menuItemEditDark = new JMenuItem("Toggle Dark");
 	JMenuItem menuItemEditFont = new JMenuItem("Toggle Font");
 	JMenuItem menuItemEditLineNo = new JMenuItem("Toggle Line Numbers");
-	
 
 	JMenuItem menuItemHelpHelp = new JMenuItem("Help Dialog");
 	JMenuItem menuItemHelpAbout = new JMenuItem("About");
@@ -94,7 +96,7 @@ public class Window extends JFrame implements ActionListener
 	JMenuItem contextItemCut = new JMenuItem("Cut");
 	JMenuItem contextItemPaste = new JMenuItem("Paste");
 	JMenuItem contextItemDelete = new JMenuItem("Delete");
-	
+
 	// global vars
 	String openFilePath = "";
 	String copiedText = "";
@@ -124,14 +126,12 @@ public class Window extends JFrame implements ActionListener
 		area.setBackground(Color.white);
 		area.setForeground(Color.black);
 		area.setCaretColor(Color.black);
+		area.registerKeyboardAction(new Indent(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
 		
-		
-		
+
 		scroll = new JScrollPane(area);
 		scroll.setRowHeaderView(tln);
-		
-		
-		
+
 		// add listener for undomanager
 		undoManager = new UndoManager();
 		area.getDocument().addUndoableEditListener(undoManager);
@@ -188,7 +188,6 @@ public class Window extends JFrame implements ActionListener
 		menuItemEditDark.setAccelerator(KeyStroke.getKeyStroke("ctrl D"));
 		menuItemEditFont.setAccelerator(KeyStroke.getKeyStroke("ctrl F"));
 		menuItemEditLineNo.setAccelerator(KeyStroke.getKeyStroke("ctrl G"));
-		
 
 		// add help menu items
 		menuHelp.add(menuItemHelpHelp);
@@ -272,9 +271,12 @@ public class Window extends JFrame implements ActionListener
 		menuItemEditLineNo.setForeground(Color.black);
 		menuItemHelpHelp.setForeground(Color.black);
 		menuItemHelpAbout.setForeground(Color.black);
-		
+
+		// set init color of the side line number bar
 		tln.setBackground(Color.lightGray);
-		tln.setForeground(Color.darkGray);
+		tln.setForeground(Color.black);
+		tln.setCurrentLineForeground(Color.red);
+		tln.setFont(new Font("monospaced", Font.PLAIN, 12));
 
 		// set menu items mnemonic button
 		// menuFile.setDisplayedMnemonicIndex(0);
@@ -288,6 +290,8 @@ public class Window extends JFrame implements ActionListener
 		this.setVisible(true);
 	}
 
+	
+	
 	// saveAs function
 	void saveAs()
 	{
@@ -377,7 +381,7 @@ public class Window extends JFrame implements ActionListener
 				if(openFilePath.equals(""))
 				{
 					saveAs();
-					
+
 					System.out.println("savepath: " + openFilePath);
 					System.out.println(Main.version + " closed");
 					System.exit(0);
@@ -474,7 +478,7 @@ public class Window extends JFrame implements ActionListener
 				br = new BufferedReader(fr);
 				line = "";
 				linebuilder = br.readLine(); // get first line of file
-				
+
 				// loop to build the finalstring for the textarea
 				while(linebuilder != null)
 				{
@@ -546,7 +550,7 @@ public class Window extends JFrame implements ActionListener
 			System.out.println("selection cutted to clipboard");
 			System.out.println("copied text: " + area.getSelectedText());
 			// copy to clipboard
-			area.copy(); 
+			area.copy();
 		}
 
 		// action for context menu paste / edit - paste
@@ -554,7 +558,7 @@ public class Window extends JFrame implements ActionListener
 		{
 			System.out.println("clipboard pasted");
 			// paste from clipboard to textarea
-			area.paste(); 
+			area.paste();
 		}
 
 		// action for context menu cut / edit - cut
@@ -562,7 +566,7 @@ public class Window extends JFrame implements ActionListener
 		{
 			System.out.println("selection cutted to clipboard");
 			// cut to clipboard
-			area.cut(); 
+			area.cut();
 		}
 
 		// action for context menu delete / edit - delete
@@ -575,7 +579,7 @@ public class Window extends JFrame implements ActionListener
 				Robot emuPress;
 				// create object for filepress emulation
 				emuPress = new Robot();
-				//press and release the delete button
+				// press and release the delete button
 				emuPress.keyPress(KeyEvent.VK_DELETE);
 				emuPress.keyRelease(KeyEvent.VK_DELETE);
 			}
@@ -632,7 +636,7 @@ public class Window extends JFrame implements ActionListener
 			System.out.println("dark executed");
 			if(isDark)
 			{
-				//set colors of interface
+				// set colors of interface
 				menuBar.setBackground(Color.lightGray);
 				menuFile.setForeground(Color.black);
 				menuEdit.setForeground(Color.black);
@@ -670,16 +674,21 @@ public class Window extends JFrame implements ActionListener
 				menuItemEditLineNo.setForeground(Color.black);
 				menuItemHelpHelp.setForeground(Color.black);
 				menuItemHelpAbout.setForeground(Color.black);
-				
-				//set colors of textarea
+
+				// set colors of textarea
 				area.setBackground(Color.white);
 				area.setForeground(Color.black);
 				area.setCaretColor(Color.black);
+				
+				// set colors of line number bar
+				tln.setBackground(Color.lightGray);
+				tln.setForeground(Color.black);
+				tln.setCurrentLineForeground(Color.red);
 
 			}
 			else
 			{
-				//set colors of interface
+				// set colors of interface
 				menuBar.setBackground(Color.darkGray);
 				menuFile.setForeground(Color.white);
 				menuEdit.setForeground(Color.white);
@@ -697,6 +706,7 @@ public class Window extends JFrame implements ActionListener
 				menuItemEditRedo.setBackground(Color.darkGray);
 				menuItemEditDark.setBackground(Color.darkGray);
 				menuItemEditFont.setBackground(Color.darkGray);
+				menuItemEditLineNo.setBackground(Color.darkGray);
 				menuItemHelpHelp.setBackground(Color.darkGray);
 				menuItemHelpAbout.setBackground(Color.darkGray);
 
@@ -713,6 +723,7 @@ public class Window extends JFrame implements ActionListener
 				menuItemEditRedo.setForeground(Color.white);
 				menuItemEditDark.setForeground(Color.white);
 				menuItemEditFont.setForeground(Color.white);
+				menuItemEditLineNo.setForeground(Color.white);
 				menuItemHelpHelp.setForeground(Color.white);
 				menuItemHelpAbout.setForeground(Color.white);
 
@@ -720,6 +731,11 @@ public class Window extends JFrame implements ActionListener
 				area.setBackground(Color.darkGray);
 				area.setForeground(Color.white);
 				area.setCaretColor(Color.white);
+				
+				// set colors of line number bar
+				tln.setBackground(Color.darkGray);
+				tln.setForeground(Color.white);
+				tln.setCurrentLineForeground(Color.cyan);
 
 			}
 			// toggle isDark
@@ -733,7 +749,7 @@ public class Window extends JFrame implements ActionListener
 			System.out.println("font executed");
 			if(isMono)
 			{
-				//set font to sans
+				// set font to sans
 				area.setFont(new Font("sans", Font.PLAIN, 14));
 				System.out.println("font: sans");
 			}
@@ -746,7 +762,7 @@ public class Window extends JFrame implements ActionListener
 			// toggle isMono
 			isMono = !isMono;
 		}
-		
+
 		// action for edit - toggle line numbers
 		if(source == menuItemEditLineNo)
 		{

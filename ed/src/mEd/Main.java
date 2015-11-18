@@ -1,7 +1,7 @@
 /*
- * mEd v0.6 - a lightweight text-editor written in Java
+ * mEd v0.7 - a lightweight text-editor written in Java
  * author - m0x23
- * 2015-11-17
+ * 2015-11-18
  * 
  * TODOlist
  * 		DONE - contextMenu 
@@ -14,14 +14,18 @@
  * 		TODO - insert statusbar to show linenumbers and filedetails
  * 		DONE - replace GER comments to ENG to improve global usage
  * 		TODO - implement syntax highlighting mode using bobbylight/RSyntaxTextArea
+ * 		TODO - templates to insert
+ * 		TODO - auto indent
+ * 		TODO - modulize editor textarea in own class
  */
+
 
 // Package
 package mEd;
 
 public class Main
 {
-	static String version = "mEd v0.6";
+	static String version = "mEd v0.7";
 	public static void main(String[] args)
 	{
 		// print name and version
