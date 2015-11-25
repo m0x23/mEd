@@ -127,7 +127,6 @@ public class Window extends JFrame implements ActionListener
 		area.setForeground(Color.black);
 		area.setCaretColor(Color.black);
 		area.registerKeyboardAction(new Indent(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_FOCUSED);
-		
 
 		scroll = new JScrollPane(area);
 		scroll.setRowHeaderView(tln);
@@ -279,12 +278,13 @@ public class Window extends JFrame implements ActionListener
 		tln.setFont(new Font("monospaced", Font.PLAIN, 12));
 
 		// set menu items mnemonic button
-		// menuFile.setDisplayedMnemonicIndex(0);
-		// menuItemFileNew.setDisplayedMnemonicIndex(0);
+		 //menuFile.setMnemonic(KeyEvent.VK_F);
+		 //menuItemFileNew.setMnemonic(KeyEvent.VK_O);
 
 		// add textarea and menubar to jframe
 		this.add(scroll);
 		this.setJMenuBar(menuBar);
+		this.setLocationByPlatform(true);
 
 		// make visible
 		this.setVisible(true);
@@ -350,8 +350,9 @@ public class Window extends JFrame implements ActionListener
 		{
 			System.out.println("about executed");
 			System.out.println(Main.version + " - by m0x23");
+			
 			// show message dialog
-			MsgDialog.create(Main.version + "\na lightweight text-editor written in Java\n\nby m0x23", "About mEd");
+			MsgDialog.createDialog(Main.version + "\na lightweight text-editor written in Java\n\nby m0x23", "About mEd", "INFO");
 		}
 
 		// action for help - help dialog
@@ -359,7 +360,7 @@ public class Window extends JFrame implements ActionListener
 		{
 			System.out.println("help executed");
 			// show popup dialog
-			MsgDialog.create("mEd text-editor\n\n" + "all keyboard shortcuts activated\nlook for tooltips in menu\n\nversion information: " + Main.version, "mEd Manual");
+			MsgDialog.createDialog("mEd text-editor\n\n" + "all keyboard shortcuts activated\nlook for tooltips in menu\n\nversion information: " + Main.version, "mEd Manual", "INFO");
 		}
 
 		// action for file - close

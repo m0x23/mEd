@@ -29,8 +29,8 @@ public class YesNoDialog extends JOptionPane
 	{
 		int returnvar;
 		// open the dialog
-		returnvar = showConfirmDialog(null, content, title, YES_NO_OPTION, QUESTION_MESSAGE);
 		System.out.println("yesnodialog executed");
+		returnvar = showConfirmDialog(null, content, title, YES_NO_OPTION, QUESTION_MESSAGE);
 
 		// print the result to terminal
 		if(returnvar == 0)
