@@ -1,5 +1,5 @@
 /*
- * mEd v0.7 - a lightweight text-editor written in Java
+ * mEd v0.8 - a lightweight text-editor written in Java
  * author - m0x23
  * 2015-11-18
  * 
@@ -15,7 +15,7 @@
  * 		DONE - replace GER comments to ENG to improve global usage
  * 		TODO - implement syntax highlighting mode using bobbylight/RSyntaxTextArea
  * 		TODO - templates to insert
- * 		TODO - auto indent
+ * 		DONE - auto indent
  * 		TODO - modulize editor textarea in own class
  */
 
