@@ -25,7 +25,7 @@ package mEd;
 
 public class Main
 {
-	static String version = "mEd v0.7";
+	static String version = "mEd v0.8";
 	public static void main(String[] args)
 	{
 		// print name and version
