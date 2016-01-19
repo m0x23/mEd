@@ -57,6 +57,7 @@ public class Window extends JFrame implements ActionListener
 	// autocreated JFrame serialVersionUID
 	private static final long serialVersionUID = 1L;
 
+	
 	// scrollable textarea
 	private JTextArea area;
 	private TextLineNumber tln;
